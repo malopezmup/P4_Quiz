@@ -75,7 +75,7 @@ exports.listCmd = (socket, rl) =>{
 };
 
 
-const validateId= id =>{
+const validateId= (socket, id) =>{
 
 	return new Sequelize.Promise((resolve, reject)=>{
 		if (typeof id == "undefined"){
