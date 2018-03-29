@@ -7,7 +7,7 @@ const net = require("net");
 
 net.createServer(socket =>{
 
-	console.log("Conexion realizada desde" + scoket.remoteAddress);
+	console.log("Se ha conectado un cliente desde" + scoket.remoteAddress);
 	//msg incial
 biglog(socket,'CORE Quiz','green');
 
@@ -23,8 +23,8 @@ const rl = readline.createInterface({
 }
 });
 socket
-.on("end",() =>{rl.close()})
-.on("error",() =>{rl.close()});
+.on("end" , () =>{rl.close();})
+.on("error",() =>{rl.close();});
 
 rl.prompt();
 

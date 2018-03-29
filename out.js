@@ -23,7 +23,7 @@ const biglog = (socket, msg, color) => {
 
 const errorlog = (socket, emsg) => {
 
-	socket.write(`${colorize("Error", "red")}: ${colorize(colorize(emsg, "red"), "bgYellowBright")}"\n"`);
+	socket.write(`${colorize("Error", "red")}: ${colorize(colorize(emsg, "red"), "bgYellowBright")}\n`);
 
 };
 
