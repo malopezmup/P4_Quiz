@@ -22,7 +22,7 @@ exports.quitCmd = (socket, rl) =>{
 	socket.end();
 };
 
-const makeQuestion= (socket, rl, text)=>{
+const makeQuestion= (rl, text)=>{
 
 	return new Sequelize.Promise ((resolve , reject)=>{
 		rl.question(colorize(text, 'red'), answer=>{
@@ -34,9 +34,9 @@ const makeQuestion= (socket, rl, text)=>{
 
 
 exports.addCmd = (socket, rl) =>{
-	makeQuestion(rl, 'Introduzca una pregunta:')
+	makeQuestion(socket,rl, 'Introduzca una pregunta:')
 	.then(q=> {
-			return makeQuestion(rl, 'Introduzca la respuesta')
+			return makeQuestion(socket,rl, 'Introduzca la respuesta')
 			.then(a =>{
 				return{question: q, answer: a};
 			});
@@ -49,10 +49,10 @@ exports.addCmd = (socket, rl) =>{
 	})
 	.catch(Sequelize.ValidationError, error=>{
 		errorlog(socket,'El quiz es erroneo:');
-		error.errors.forEach(({message})=> errorlog(message));
+		error.errors.forEach(({message})=> errorlog(socket, message));
 	})
 	.catch(error =>{
-		errorlog(error.message);
+		errorlog(socket, error.message);
 	})
 	.then(()=>{
 		rl.prompt();
@@ -75,7 +75,7 @@ exports.listCmd = (socket, rl) =>{
 };
 
 
-const validateId= (socket, id) =>{
+const validateId= (id) =>{
 
 	return new Sequelize.Promise((resolve, reject)=>{
 		if (typeof id == "undefined"){
